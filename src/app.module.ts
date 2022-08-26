@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
+import * as redisStore from 'cache-manager-redis-store';
 import { UsersModule } from './users/users.module';
 import { MoviesModule } from './movies/movies.module';
 import { LoginModule } from './login/login.module';
@@ -10,6 +11,12 @@ import { OrgConfigAsync } from './config/ormConfig';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync(OrgConfigAsync),
+    CacheModule.register({
+      isGlobal: true,
+      store: redisStore,
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
+    }),
     UsersModule,
     MoviesModule,
     LoginModule,

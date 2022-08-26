@@ -9,6 +9,9 @@ import {
   ParseUUIDPipe,
   HttpCode,
   HttpStatus,
+  UseInterceptors,
+  CacheInterceptor,
+  CacheTTL,
 } from '@nestjs/common';
 import { UserService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -27,7 +30,7 @@ import {
   UserBodyUpdate,
   UserResponse,
   UserResponseUpdate,
-} from 'src/schemas/user.schema';
+} from './../schemas/user.schema';
 
 @ApiTags('User')
 @Controller('users')
@@ -41,6 +44,8 @@ export class UserController {
   async create(@Body() data: CreateUserDto) {
     return instanceToPlain(await this.userService.store(data));
   }
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @Get()
   async index() {
     return instanceToPlain(await this.userService.findAll());

@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ./app
+    environment:
+      - POSTGRES_HOST=postres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=alexandre
+      - POSTGRES_DB_PASSWORD=1234
+      - POSTGRES_DATABASE=mks_backend_challenge
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    command: npm run start:dev
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - 3000:3000
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=alexandre
+      - POSTGRES_DB_PASSWORD=1234
+      - POSTGRES_DATABASE=mks_backend_challenge
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - '5432:5432'
+  redis: 
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+volumes:
+  redis:
+    driver: local
