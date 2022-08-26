@@ -15,13 +15,35 @@ import { MovieService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { AuthGuard } from '@nestjs/passport';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiExtraModels,
+  ApiOkResponse,
+  ApiParam,
+  ApiTags,
+  refs,
+} from '@nestjs/swagger';
+import {
+  MovieBody,
+  MovieResponse,
+  MovieUpdateBody,
+  MovieUpdateResponse,
+} from 'src/schemas/movie.schema';
 
+@ApiTags('Movie')
 @UseGuards(AuthGuard('jwt'))
 @Controller('movies')
 export class MovieController {
   constructor(private readonly moviesService: MovieService) {}
 
   @Post()
+  @ApiExtraModels(MovieBody, MovieResponse)
+  @ApiBody({ schema: { oneOf: refs(MovieBody) } })
+  @ApiCreatedResponse({
+    schema: { anyOf: refs(MovieResponse) },
+  })
   async create(@Body() data: CreateMovieDto) {
     return await this.moviesService.create(data);
   }
@@ -37,6 +59,12 @@ export class MovieController {
   }
 
   @Patch(':id')
+  @Post()
+  @ApiExtraModels(MovieUpdateBody, MovieUpdateResponse)
+  @ApiBody({ schema: { oneOf: refs(MovieUpdateBody) } })
+  @ApiOkResponse({
+    schema: { anyOf: refs(MovieUpdateResponse) },
+  })
   async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() data: UpdateMovieDto,

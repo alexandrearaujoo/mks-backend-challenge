@@ -14,12 +14,30 @@ import { UserService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { instanceToPlain } from 'class-transformer';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiExtraModels,
+  ApiOkResponse,
+  ApiTags,
+  refs,
+} from '@nestjs/swagger';
+import {
+  UserBody,
+  UserBodyUpdate,
+  UserResponse,
+  UserResponseUpdate,
+} from 'src/schemas/user.schema';
 
+@ApiTags('User')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @ApiExtraModels(UserBody, UserResponse)
+  @ApiBody({ schema: { oneOf: refs(UserBody) } })
+  @ApiCreatedResponse({ schema: { oneOf: refs(UserResponse) } })
   async create(@Body() data: CreateUserDto) {
     return instanceToPlain(await this.userService.store(data));
   }
@@ -33,6 +51,9 @@ export class UserController {
   }
 
   @Patch(':id')
+  @ApiExtraModels(UserBodyUpdate, UserResponseUpdate)
+  @ApiBody({ schema: { oneOf: refs(UserBodyUpdate) } })
+  @ApiOkResponse({ schema: { oneOf: refs(UserResponseUpdate) } })
   async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() data: UpdateUserDto,
