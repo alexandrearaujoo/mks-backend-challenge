@@ -13,7 +13,7 @@ export const OrmConfigAsync: TypeOrmModuleAsyncOptions = {
 
   useFactory: (configService: ConfigService) => ({
     type: 'postgres',
-    host: configService.get('POSTGRES_HOST'),
+    host: configService.get('DB_HOST'),
     url: configService.get('DATABASE_URL'),
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     migrations: [__dirname + '/../migrations/*{.ts,.js}'],
@@ -28,7 +28,7 @@ export const OrmConfigAsync: TypeOrmModuleAsyncOptions = {
 
 export default new DataSource({
   type: 'postgres',
-  host: configService.get('POSTGRES_HOST'),
+  host: configService.get('DB_HOST'),
   url: configService.get('DATABASE_URL'),
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],

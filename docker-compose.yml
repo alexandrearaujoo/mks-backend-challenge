@@ -1,24 +1,22 @@
 version: '3.9'
 
 services:
+  db:
+    container_name: postgres-db
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
   api:
     container_name: mks-backend
     build: .
     ports:
       - 3000:3000
-    environment:
-      - POSTGRES_HOST=db
-      - DATABASE_URL=postgres://postgres:postgres@localhost:5432/mks_backend_challenge
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; yarn typeorm migration:run -d src/config/ormConfig.ts && yarn start:dev'
+    env_file:
+      - .env
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; yarn start:dev'
     depends_on:
       - db
-  db:
-    container_name: postgres-db
-    image: postgres:12
-    restart: always
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=mks_backend_challenge
+

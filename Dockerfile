@@ -1,21 +1,18 @@
-FROM node:16 AS builder
+FROM node:16
+
+RUN apt-get update
+
+ENV PORT=3000
+
+EXPOSE 3000
 
 WORKDIR /app
 
-COPY ./package.json ./
+COPY package.json ./
 
-RUN npm install --force
+RUN yarn
 
 COPY . .
 
-RUN npm run build
-
-FROM node:16
-
-WORKDIR /app
-
-COPY --from=builder /app ./
-
 USER node
 
-EXPOSE 3000
