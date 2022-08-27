@@ -1,20 +1,20 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { config } from 'dotenv';
+
+config();
 
 const configService = new ConfigService();
 
-export const OrgConfigAsync: TypeOrmModuleAsyncOptions = {
+export const OrmConfigAsync: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
   inject: [ConfigService],
 
   useFactory: (configService: ConfigService) => ({
     type: 'postgres',
     host: configService.get('POSTGRES_HOST'),
-    port: +configService.get('POSTGRES_PORT'),
-    username: configService.get('POSTGRES_USER'),
-    password: configService.get('POSTGRES_DB_PASSWORD'),
-    database: configService.get('POSTGRES_DATABASE'),
+    url: configService.get('DATABASE_URL'),
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     migrations: [__dirname + '/../migrations/*{.ts,.js}'],
     synchronize: false,
@@ -28,13 +28,10 @@ export const OrgConfigAsync: TypeOrmModuleAsyncOptions = {
 
 export default new DataSource({
   type: 'postgres',
-  host: process.env.POSTGRES_HOST,
-  port: +process.env.POSTGRES_PORT,
-  username: process.env.POSTGRES_USER,
-  password: '1234',
-  database: 'mks_backend_challenge',
+  host: configService.get('POSTGRES_HOST'),
+  url: configService.get('DATABASE_URL'),
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   synchronize: false,
   logging: true,
-  migrations: [__dirname + '/../migrations/*{.ts,.js}'],
 });

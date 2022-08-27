@@ -50,8 +50,8 @@ export class MovieController {
   }
 
   @Get()
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(30)
+  // @UseInterceptors(CacheInterceptor)
+  // @CacheTTL(30)
   async findAll() {
     return await this.moviesService.findAll();
   }

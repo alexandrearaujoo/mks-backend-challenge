@@ -2,41 +2,23 @@ version: '3.9'
 
 services:
   api:
-    build:
-      dockerfile: Dockerfile
-      context: .
-    volumes:
-      - ./app
-    environment:
-      - POSTGRES_HOST=postres
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=alexandre
-      - POSTGRES_DB_PASSWORD=1234
-      - POSTGRES_DATABASE=mks_backend_challenge
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-    command: npm run start:dev
-    depends_on:
-      - postgres
-      - redis
+    container_name: mks-backend
+    build: .
     ports:
       - 3000:3000
-  postgres:
-    image: postgres
-    restart: always
     environment:
-      - POSTGRES_USER=alexandre
-      - POSTGRES_DB_PASSWORD=1234
-      - POSTGRES_DATABASE=mks_backend_challenge
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_HOST=db
+      - DATABASE_URL=postgres://postgres:postgres@localhost:5432/mks_backend_challenge
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; yarn typeorm migration:run -d src/config/ormConfig.ts && yarn start:dev'
+    depends_on:
+      - db
+  db:
+    container_name: postgres-db
+    image: postgres:12
+    restart: always
     ports:
-      - '5432:5432'
-  redis: 
-    image: redis
-    ports:
-      - 6379:6379
-    volumes:
-      - redis:/data
-volumes:
-  redis:
-    driver: local
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=mks_backend_challenge

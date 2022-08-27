@@ -44,8 +44,8 @@ export class UserController {
   async create(@Body() data: CreateUserDto) {
     return instanceToPlain(await this.userService.store(data));
   }
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(30)
+  // @UseInterceptors(CacheInterceptor)
+  // @CacheTTL(30)
   @Get()
   async index() {
     return instanceToPlain(await this.userService.findAll());

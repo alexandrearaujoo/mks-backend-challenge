@@ -5,18 +5,18 @@ import { MoviesModule } from './movies/movies.module';
 import { LoginModule } from './login/login.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrgConfigAsync } from './config/ormConfig';
+import { OrmConfigAsync } from './config/ormConfig';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRootAsync(OrgConfigAsync),
-    CacheModule.register({
-      isGlobal: true,
-      store: redisStore,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-    }),
+    TypeOrmModule.forRootAsync(OrmConfigAsync),
+    // CacheModule.register({
+    //   isGlobal: true,
+    //   store: redisStore,
+    //   host: process.env.REDIS_HOST,
+    //   port: process.env.REDIS_PORT,
+    // }),
     UsersModule,
     MoviesModule,
     LoginModule,
