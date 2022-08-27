@@ -1,16 +1,19 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { config } from 'dotenv';
+
+config();
 
 const configService = new ConfigService();
 
-export const OrgConfigAsync: TypeOrmModuleAsyncOptions = {
+export const OrmConfigAsync: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
   inject: [ConfigService],
 
   useFactory: (configService: ConfigService) => ({
     type: 'postgres',
-    host: configService.get('POSTGRES_HOST'),
+    host: configService.get('DB_HOST'),
     url: configService.get('DATABASE_URL'),
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     migrations: [__dirname + '/../migrations/*{.ts,.js}'],
@@ -29,12 +32,12 @@ export const OrgConfigAsync: TypeOrmModuleAsyncOptions = {
 
 export default new DataSource({
   type: 'postgres',
-  host: process.env.POSTGRES_HOST,
-  url: process.env.DATABASE_URL,
+  host: configService.get('DB_HOST'),
+  url: configService.get('DATABASE_URL'),
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   synchronize: false,
   logging: true,
-  migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   ssl:
     process.env.NODE_ENV === 'production'
       ? { rejectUnauthorized: false }
