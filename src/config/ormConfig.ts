@@ -19,6 +19,10 @@ export const OrmConfigAsync: TypeOrmModuleAsyncOptions = {
     migrations: [__dirname + '/../migrations/*{.ts,.js}'],
     synchronize: false,
     logging: true,
+    ssl:
+      process.env.NODE_ENV === 'production'
+        ? { rejectUnauthorized: false }
+        : false,
   }),
   dataSourceFactory: async (options) => {
     const dataSource = await new DataSource(options).initialize();
@@ -34,4 +38,8 @@ export default new DataSource({
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   synchronize: false,
   logging: true,
+  ssl:
+    process.env.NODE_ENV === 'production'
+      ? { rejectUnauthorized: false }
+      : false,
 });
