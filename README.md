@@ -9,45 +9,55 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Technologies
+
+- Typescript
+- NestJs
+- TypeORM
+- PostgreSQL
+- Redis
+- Docker
+- JWT (JsonWebToken)
+- Bcrypt
+
 ## Installation
 
 ```bash
 $ npm install | yarn install | yarn 
 ```
 
+## Creating database
+
+- First of all run ```docker-compose up -d``` to create the database
+
+## Running migrations to create the tables in the database
+
+- After creating the database, run ```npm run typeorm migration:run -d src/config/ormConfig.ts | yarn typeorm migration:run -d src/config/ormConfig.ts``` to run the migrations and create the tables in the database
+
 ## Running the app
 
 ```bash
 # development
-$ docker-compose up -d
 $ npm run start | yarn start
 
 # watch mode
-$ docker-compose up -d
 $ npm run start:dev | yarn start:dev
 
 # production mode
-$ npm run start:prod | | yarn start:dev
+$ npm run start:prod | yarn start:dev
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test | | yarn test
+$ npm run test | yarn test
 
 # e2e tests 
 $ npm run test:e2e | yarn test:e2e
 
 # test coverage
 $ npm run test:cov | yarn test:cov
-```
-
-## Running the migrations
-
-```bash
-# development
-$ npm run typeorm migration:run -d src/config/ormConfig.ts | yarn typeorm migration:run -d src/config/ormConfig.ts
 ```
 
 ## Stopping the docker-compose
