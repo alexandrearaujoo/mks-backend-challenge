@@ -78,8 +78,9 @@ $ docker-compose stop
 - NestJs: segundo projeto que eu utilizo
 - Typescript: 5 meses
 - TypeORM: 4 meses
-- Swagger: segundo projeto em TS que eu utilizo, utilizei antes com Python e Django
+- PostgreSQL: 4 meses
 - Bcrypt: 5 meses
 - JWT: 5 meses
 - Redis: primeiro contanto
 - Docker: 4 meses 
+- Swagger: segundo projeto em TS que eu utilizo, utilizei antes com Python e Django
