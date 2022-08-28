@@ -3,6 +3,7 @@ import * as redisStore from 'cache-manager-redis-store';
 import { UsersModule } from './modules/users/users.module';
 import { MoviesModule } from './modules/movies/movies.module';
 import { LoginModule } from './modules/login/login.module';
+import { RedisClientOptions } from 'redis';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrmConfigAsync } from './config/ormConfig';
@@ -11,11 +12,17 @@ import { OrmConfigAsync } from './config/ormConfig';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync(OrmConfigAsync),
-    CacheModule.register({
+    CacheModule.registerAsync<RedisClientOptions>({
       isGlobal: true,
-      store: redisStore,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
+      useFactory: () => ({
+        store: redisStore,
+        url: process.env.REDIS_URL,
+        password: process.env.REDIS_PASSWORD,
+        tls:
+          process.env.NODE_ENV === 'production'
+            ? { rejectUnauthorized: false }
+            : false,
+      }),
     }),
     UsersModule,
     MoviesModule,

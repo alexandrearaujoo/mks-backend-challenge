@@ -63,7 +63,7 @@ export class UserController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() data: UpdateUserDto,
   ) {
-    return await this.userService.update(id, data);
+    return instanceToPlain(await this.userService.update(id, data));
   }
 
   @Delete(':id')
