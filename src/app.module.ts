@@ -13,10 +13,9 @@ import { OrmConfigAsync } from './config/ormConfig';
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync(OrmConfigAsync),
     CacheModule.registerAsync<RedisClientOptions>({
+      isGlobal: true,
       useFactory: () => ({
         store: redisStore,
-        isCacheableValue: () => true,
-        ttl: 120,
         url: process.env.REDIS_URL,
       }),
     }),
