@@ -17,7 +17,7 @@
 - PostgreSQL
 - Redis
 - Docker
-- JWT (JsonWebToken)
+- JWT 
 - Bcrypt
 - Swagger 
 
