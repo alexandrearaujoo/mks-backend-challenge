@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsUrl, Min } from 'class-validator';
 
 export class CreateMovieDto {
   @IsNotEmpty({ message: 'Title is required' })
@@ -6,6 +6,7 @@ export class CreateMovieDto {
 
   @IsNotEmpty({ message: 'Duration is required' })
   @IsNumber()
+  @Min(1)
   duration: number;
 
   @IsNotEmpty({ message: 'Category is required' })

@@ -11,12 +11,12 @@ import { OrmConfigAsync } from './config/ormConfig';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync(OrmConfigAsync),
-    // CacheModule.register({
-    //   isGlobal: true,
-    //   store: redisStore,
-    //   host: process.env.REDIS_HOST,
-    //   port: process.env.REDIS_PORT,
-    // }),
+    CacheModule.register({
+      isGlobal: true,
+      store: redisStore,
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
+    }),
     UsersModule,
     MoviesModule,
     LoginModule,
