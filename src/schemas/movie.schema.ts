@@ -80,6 +80,18 @@ export class MovieResponse {
   })
   @IsUrl()
   coverImage: string;
+
+  @ApiProperty({
+    description: 'Created At',
+    example: '"2022-08-26T14:06:41.748Z"',
+  })
+  createdAt: string;
+
+  @ApiProperty({
+    description: 'Updated At',
+    example: '"2022-08-26T14:06:41.748Z"',
+  })
+  updatedAt: string;
 }
 
 export class MovieUpdateBody {
@@ -105,4 +117,10 @@ export class MovieUpdateResponse {
   })
   @IsString()
   title: string;
+
+  @ApiProperty({
+    description: 'Updated At',
+    example: '"2022-08-26T14:06:49.748Z"',
+  })
+  updatedAt: string;
 }
