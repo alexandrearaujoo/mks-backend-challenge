@@ -12,7 +12,7 @@
 ## Installation
 
 ```bash
-$ npm install
+$ npm install | yarn install | yarn 
 ```
 
 ## Running the app
@@ -20,27 +20,34 @@ $ npm install
 ```bash
 # development
 $ docker-compose up -d
-$ npm run start
+$ npm run start | yarn start
 
 # watch mode
 $ docker-compose up -d
-$ npm run start:dev
+$ npm run start:dev | yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ npm run start:prod | | yarn start:dev
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ npm run test | | yarn test
 
-# e2e tests
-$ npm run test:e2e
+# e2e tests 
+$ npm run test:e2e | yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ npm run test:cov | yarn test:cov
+```
+
+## Running the migrations
+
+```bash
+# development
+$ npm run typeorm migration:run -d src/config/ormConfig.ts | yarn typeorm migration:run -d src/config/ormConfig.ts
 ```
 
 ## Stopping the docker-compose
