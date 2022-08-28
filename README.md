@@ -12,7 +12,7 @@
 ## Deploy
 ```bash
 # base url
-$ https://mks-api.herokuapp.com
+$ <a href="https://mks-api.herokuapp.com" target="blank"> https://mks-api.herokuapp.com </a>
 # documentation
 $ https://mks-api.herokuapp.com/docs
 ```
