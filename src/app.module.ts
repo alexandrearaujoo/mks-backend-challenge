@@ -18,6 +18,9 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       useFactory: () => ({
         store: redisStore,
         url: process.env.REDIS_URL,
+        tls: {
+          rejectUnauthorized: false,
+        },
       }),
     }),
     UsersModule,
@@ -25,11 +28,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     LoginModule,
   ],
   controllers: [],
-  providers: [
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
-    },
-  ],
+  providers: [],
 })
 export class AppModule {}
