@@ -1,9 +1,9 @@
 import { CacheModule, Module } from '@nestjs/common';
 import * as redisStore from 'cache-manager-redis-store';
+import { UsersModule } from './modules/users/users.module';
+import { MoviesModule } from './modules/movies/movies.module';
+import { LoginModule } from './modules/login/login.module';
 import { RedisClientOptions } from 'redis';
-import { UsersModule } from './users/users.module';
-import { MoviesModule } from './movies/movies.module';
-import { LoginModule } from './login/login.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrmConfigAsync } from './config/ormConfig';

@@ -30,7 +30,7 @@ import {
   UserBodyUpdate,
   UserResponse,
   UserResponseUpdate,
-} from './../schemas/user.schema';
+} from '../../schemas/user.schema';
 
 @ApiTags('User')
 @Controller('users')
