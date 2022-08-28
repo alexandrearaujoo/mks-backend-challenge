@@ -18,6 +18,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       useFactory: () => ({
         store: redisStore,
         url: process.env.REDIS_URL,
+        password: process.env.REDIS_PASSWORD,
         tls: {
           rejectUnauthorized: false,
         },
