@@ -17,6 +17,7 @@ import { OrmConfigAsync } from './config/ormConfig';
         store: redisStore,
         host: process.env.REDIS_URL,
         port: process.env.REDIS_PORT,
+        ttl: 500,
       }),
     }),
     UsersModule,
