@@ -81,6 +81,6 @@ $ docker-compose stop
 - PostgreSQL: 4 meses
 - Bcrypt: 5 meses
 - JWT: 5 meses
-- Redis: primeiro contanto
+- Redis: primeiro contato
 - Docker: 4 meses 
 - Swagger: segundo projeto em TS que eu utilizo, utilizei antes com Python e Django
