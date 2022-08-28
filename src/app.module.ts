@@ -14,7 +14,7 @@ import { OrmConfigAsync } from './config/ormConfig';
     CacheModule.register({
       isGlobal: true,
       store: redisStore,
-      host: process.env.REDIS_HOST,
+      host: process.env.REDIS_URL,
       port: process.env.REDIS_PORT,
     }),
     UsersModule,
