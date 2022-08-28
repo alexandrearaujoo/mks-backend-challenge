@@ -1,5 +1,6 @@
 import { CacheModule, Module } from '@nestjs/common';
 import * as redisStore from 'cache-manager-redis-store';
+import { RedisClientOptions } from 'redis';
 import { UsersModule } from './users/users.module';
 import { MoviesModule } from './movies/movies.module';
 import { LoginModule } from './login/login.module';
@@ -11,13 +12,14 @@ import { OrmConfigAsync } from './config/ormConfig';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync(OrmConfigAsync),
-    CacheModule.registerAsync({
-      useFactory: () => ({
-        store: redisStore,
+    CacheModule.register<RedisClientOptions>({
+      store: redisStore,
+      socket: {
         host: process.env.REDIS_URL,
-        port: process.env.REDIS_PORT,
-      }),
+        port: +process.env.REDIS_PORT,
+      },
     }),
+
     UsersModule,
     MoviesModule,
     LoginModule,
