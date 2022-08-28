@@ -5,6 +5,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { hashSync } from 'bcrypt';
+import { instanceToPlain } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -49,15 +51,36 @@ export class UserService {
   }
 
   async update(id: string, data: UpdateUserDto) {
-    await this.findOne(id);
+    const user = await this.userRepository.findOne({ where: { id } });
 
-    const user = await this.userRepository.save({ ...data, id });
+    if (!user) throw new NotFoundException('User not found');
 
-    return user;
+    if (data.password) {
+      data.password = hashSync(data.password, 10);
+    }
+
+    if (data.email) {
+      const emailAlreadyExists = await this.userRepository.findOne({
+        where: { email: data.email },
+      });
+
+      if (emailAlreadyExists)
+        throw new HttpException('Email already exists', HttpStatus.CONFLICT);
+    }
+
+    const userUpdated = await this.userRepository.save({
+      ...data,
+      id: user.id,
+    });
+    const { password, ...response } = userUpdated;
+
+    return response;
   }
 
   async delete(id: string) {
-    await this.findOne(id);
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (!user) throw new NotFoundException('User not found');
 
     await this.userRepository.delete(id);
 

@@ -55,6 +55,15 @@ export class MovieService {
 
     if (!movie) throw new NotFoundException('Movie not found');
 
+    if (data.title) {
+      const titleAlreadyExists = await this.movieRepository.findOne({
+        where: { title: data.title },
+      });
+
+      if (titleAlreadyExists)
+        throw new HttpException('Title already exists', HttpStatus.CONFLICT);
+    }
+
     const updatedMovie = await this.movieRepository.save({
       ...data,
       id: movie.id,

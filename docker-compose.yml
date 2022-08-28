@@ -9,14 +9,15 @@ services:
       - 5432:5432
     env_file:
       - .env
-  api:
-    container_name: mks-backend
-    build: .
+  redis:
+    container_name: cache
+    image: redis
     ports:
-      - 3000:3000
-    env_file:
-      - .env
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; yarn start:dev'
-    depends_on:
-      - db
+      - 6379:6379
+    volumes:
+      - redis:/data
+
+volumes:
+  redis:
+    driver: local
 

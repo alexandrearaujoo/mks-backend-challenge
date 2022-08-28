@@ -19,6 +19,7 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { AuthGuard } from '@nestjs/passport';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
   ApiExtraModels,
@@ -34,6 +35,7 @@ import {
 } from './../schemas/movie.schema';
 
 @ApiTags('Movie')
+@ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
 @Controller('movies')
 export class MovieController {
@@ -50,8 +52,8 @@ export class MovieController {
   }
 
   @Get()
-  // @UseInterceptors(CacheInterceptor)
-  // @CacheTTL(30)
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   async findAll() {
     return await this.moviesService.findAll();
   }
