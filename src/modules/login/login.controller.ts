@@ -7,7 +7,7 @@ import {
   ApiTags,
   refs,
 } from '@nestjs/swagger';
-import { LoginBody, LoginResponse } from './../schemas/login.schema';
+import { LoginBody, LoginResponse } from '../../schemas/login.schema';
 import { LoginService } from './login.service';
 
 @ApiTags('Login')

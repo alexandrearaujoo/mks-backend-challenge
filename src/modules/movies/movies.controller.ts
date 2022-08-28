@@ -32,7 +32,7 @@ import {
   MovieResponse,
   MovieUpdateBody,
   MovieUpdateResponse,
-} from './../schemas/movie.schema';
+} from '../../schemas/movie.schema';
 
 @ApiTags('Movie')
 @ApiBearerAuth()
