@@ -10,12 +10,9 @@
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Deploy
-```bash
-# base url
-$ <a href="https://mks-api.herokuapp.com" target="blank"> https://mks-api.herokuapp.com </a>
-# documentation
-$ https://mks-api.herokuapp.com/docs
-```
+<p align="center">
+  <a href="https://mks-api.herokuapp.com" target="blank"><img src="https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white" width="200" alt="Nest Logo" /></a>
+</p>
 
 ## Technologies
 
