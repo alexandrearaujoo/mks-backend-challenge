@@ -1,4 +1,4 @@
-import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import * as redisStore from 'cache-manager-redis-store';
 import { RedisClientOptions } from 'redis';
 import { UsersModule } from './users/users.module';
@@ -7,7 +7,6 @@ import { LoginModule } from './login/login.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrmConfigAsync } from './config/ormConfig';
-import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -19,9 +18,10 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
         store: redisStore,
         url: process.env.REDIS_URL,
         password: process.env.REDIS_PASSWORD,
-        tls: {
-          rejectUnauthorized: false,
-        },
+        tls:
+          process.env.NODE_ENV === 'production'
+            ? { rejectUnauthorized: false }
+            : false,
       }),
     }),
     UsersModule,
