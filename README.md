@@ -19,6 +19,7 @@
 - Docker
 - JWT (JsonWebToken)
 - Bcrypt
+- Swagger 
 
 ## Installation
 
@@ -50,7 +51,7 @@ $ npm run start | yarn start
 $ npm run start:dev | yarn start:dev
 
 # production mode
-$ npm run start:prod | yarn start:dev
+$ npm run start:prod | yarn start:prod
 ```
 
 ## Test
@@ -72,3 +73,13 @@ $ npm run test:cov | yarn test:cov
 # development
 $ docker-compose stop
 ```
+## Experiences
+
+- NestJs: segundo projeto que eu utilizo
+- Typescript: 5 meses
+- TypeORM: 4 meses
+- Swagger: segundo projeto em TS que eu utilizo, utilizei antes com Python e Django
+- Bcrypt: 5 meses
+- JWT: 5 meses
+- Redis: primeiro contanto
+- Docker: 4 meses 
