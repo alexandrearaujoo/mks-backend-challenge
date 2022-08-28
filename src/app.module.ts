@@ -1,4 +1,4 @@
-import { CacheModule, Module } from '@nestjs/common';
+import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import * as redisStore from 'cache-manager-redis-store';
 import { RedisClientOptions } from 'redis';
 import { UsersModule } from './users/users.module';
@@ -7,6 +7,7 @@ import { LoginModule } from './login/login.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrmConfigAsync } from './config/ormConfig';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -24,6 +25,11 @@ import { OrmConfigAsync } from './config/ormConfig';
     LoginModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ],
 })
 export class AppModule {}
