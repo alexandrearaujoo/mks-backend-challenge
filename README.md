@@ -28,11 +28,17 @@ $ npm install | yarn install | yarn
 
 ## Creating database
 
-- First of all run ```docker-compose up -d``` to create the database
+```bash
+# first of all run this command to create the database
+$ docker-compose up -d
+```
 
 ## Running migrations to create the tables in the database
 
-- After creating the database, run ```npm run typeorm migration:run -d src/config/ormConfig.ts | yarn typeorm migration:run -d src/config/ormConfig.ts``` to run the migrations and create the tables in the database
+```bash
+# after creating the database, run this command to run the migrations and create the tables in the database
+$ npm run typeorm migration:run -d src/config/ormConfig.ts | yarn typeorm migration:run -d src/config/ormConfig.ts
+```
 
 ## Running the app
 
@@ -61,6 +67,7 @@ $ npm run test:cov | yarn test:cov
 ```
 
 ## Stopping the docker-compose
+
 ```bash
 # development
 $ docker-compose stop
