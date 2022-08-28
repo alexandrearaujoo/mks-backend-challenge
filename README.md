@@ -9,6 +9,14 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Deploy
+```bash
+# base url
+$ https://mks-api.herokuapp.com
+# documentation
+$ https://mks-api.herokuapp.com/docs
+```
+
 ## Technologies
 
 - Typescript
